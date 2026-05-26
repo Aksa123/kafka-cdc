@@ -1,0 +1,24 @@
+{
+  "name": "source-connector",  
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector", 
+    "database.hostname": "postgres-src", 
+    "database.port": "5432", 
+    "database.user": "alpha", 
+    "database.password": "alpha123", 
+    "database.dbname" : "alpha", 
+    "plugin.name": "pgoutput",
+    "topic.prefix": "test", 
+    "table.include.list": "public.users,public.cities",
+    "publication.name": "testpub",
+    "tombstones.on.delete": "false",
+    "poll.interval.ms": 500,
+    "max.batch.size": 2048,
+    "max.queue.size": 8192,
+    "snapshot.fetch.size": 10240,
+    "slot.max.retries": 6,
+    "slot.retry.delay.ms": 10000,
+    "retriable.restart.connector.wait.ms": 10000,
+    "skipped.operations": "t"
+  }
+}

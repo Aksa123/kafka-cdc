@@ -1,0 +1,18 @@
+{
+    "schema": {
+        "type": "struct",
+        "fields": [
+            {
+                "type": "int32",
+                "optional": false,
+                "default": 0,
+                "field": "id"
+            }
+        ],
+        "optional": false,
+        "name": "test.public.users.Key"
+    },
+    "payload": {
+        "id": 7
+    }
+}

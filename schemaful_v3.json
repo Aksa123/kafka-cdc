@@ -1,0 +1,24 @@
+{
+    "name": "schema_name.table_name",
+    "type": "record",
+    "fields": [
+        {"name": "id", "type": "int"},
+        {"name": "name", "type": "string"},
+        {"name": "date_of_birth", "type": "int", "class": "date"}, 
+        {"name": "created_at", "type": "int", "class": "datetime"},
+        {"name": "created_at_utc", "type": "string", "class": "datatetimetz"},
+        {"name": "is_admin", "type": "boolean"},
+        {"name": "document", "type": "string", "class": "json"},
+        {"name": "balance", "type": "float"}
+    ],
+    "values": {
+        "id": 1,
+        "name": "flip",
+        "date_of_birth": 11135,
+        "created_at": 1779627527,
+        "created_at_utc": "2026-05-24T19:25:06+0700",
+        "is_admin": false,
+        "document": "{\"address\": \"jogja\", \"telp\": \"081399999999\"}",
+        "balance": 2700.50
+    }
+}

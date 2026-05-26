@@ -1,0 +1,61 @@
+{
+    "name": "schema_name.table_name",
+    "type": "record",
+    "fields": [
+        {
+            "name": "before",
+            "type": "record",
+            "fields": [
+                {"name": "id", "type": "int"},
+                {"name": "name", "type": "string"},
+                {"name": "date_of_birth", "type": "int", "class": "date"}, 
+                {"name": "created_at", "type": "int", "class": "datetime"},
+                {"name": "created_at_utc", "type": "string", "class": "datatetimetz"},
+                {"name": "is_admin", "type": "bool"},
+                {"name": "document", "type": "string", "class": "json"},
+                {"name": "balance", "type": "float"}
+            ]
+        },
+        {
+            "name": "after",
+            "type": "record",
+            "fields": [
+                {"name": "id", "type": "int"},
+                {"name": "name", "type": "string"},
+                {"name": "date_of_birth", "type": "int", "class": "date"}, 
+                {"name": "created_at", "type": "int", "class": "datetime"},
+                {"name": "created_at_utc", "type": "string", "class": "datatetimetz"},
+                {"name": "is_admin", "type": "bool"},
+                {"name": "document", "type": "string", "class": "json"},
+                {"name": "balance", "type": "float"},
+                {"name": "new_column", "type": "string"}
+            ]
+        }
+        
+    ],
+    "values": {
+        "before": {
+            "id": 1,
+            "name": "flip",
+            "date_of_birth": 11135,
+            "created_at": 1779627527,
+            "created_at_utc": "2026-05-24T19:25:06+0700",
+            "is_admin": false,
+            "document": "{\"address\": \"jogja\", \"telp\": \"081399999999\"}",
+            "balance": 2700.50
+        },
+        "after": {
+            "id": 1,
+            "name": "flip",
+            "date_of_birth": 11135,
+            "created_at": 1779627527,
+            "created_at_utc": "2026-05-24T19:25:06+0700",
+            "is_admin": false,
+            "document": "{\"address\": \"jogja\", \"telp\": \"081399999999\"}",
+            "balance": 2700.50,
+            "new_column": "HELLO WORLD"
+        }
+    },
+    "op": "u",
+    "timestamp_ms": 1779696265
+}

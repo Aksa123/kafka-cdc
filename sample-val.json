@@ -1,0 +1,303 @@
+{
+    "schema": {
+        "type": "struct",
+        "fields": [
+            {
+                "type": "struct",
+                "fields": [
+                    {
+                        "type": "int32",
+                        "optional": false,
+                        "default": 0,
+                        "field": "id"
+                    },
+                    {
+                        "type": "string",
+                        "optional": true,
+                        "field": "name"
+                    },
+                    {
+                        "type": "int32",
+                        "optional": true,
+                        "field": "age"
+                    },
+                    {
+                        "type": "int32",
+                        "optional": true,
+                        "name": "io.debezium.time.Date",
+                        "version": 1,
+                        "field": "birthday"
+                    },
+                    {
+                        "type": "boolean",
+                        "optional": true,
+                        "default": false,
+                        "field": "is_admin"
+                    },
+                    {
+                        "type": "double",
+                        "optional": true,
+                        "default": 0.0,
+                        "field": "balance"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": true,
+                        "name": "io.debezium.time.MicroTimestamp",
+                        "version": 1,
+                        "default": 0,
+                        "field": "created_at"
+                    },
+                    {
+                        "type": "string",
+                        "optional": true,
+                        "name": "io.debezium.time.ZonedTimestamp",
+                        "version": 1,
+                        "default": "1970-01-01T00:00:00.000000Z",
+                        "field": "created_at_tz"
+                    }
+                ],
+                "optional": true,
+                "name": "test.public.users.Value",
+                "field": "before"
+            },
+            {
+                "type": "struct",
+                "fields": [
+                    {
+                        "type": "int32",
+                        "optional": false,
+                        "default": 0,
+                        "field": "id"
+                    },
+                    {
+                        "type": "string",
+                        "optional": true,
+                        "field": "name"
+                    },
+                    {
+                        "type": "int32",
+                        "optional": true,
+                        "field": "age"
+                    },
+                    {
+                        "type": "int32",
+                        "optional": true,
+                        "name": "io.debezium.time.Date",
+                        "version": 1,
+                        "field": "birthday"
+                    },
+                    {
+                        "type": "boolean",
+                        "optional": true,
+                        "default": false,
+                        "field": "is_admin"
+                    },
+                    {
+                        "type": "double",
+                        "optional": true,
+                        "default": 0.0,
+                        "field": "balance"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": true,
+                        "name": "io.debezium.time.MicroTimestamp",
+                        "version": 1,
+                        "default": 0,
+                        "field": "created_at"
+                    },
+                    {
+                        "type": "string",
+                        "optional": true,
+                        "name": "io.debezium.time.ZonedTimestamp",
+                        "version": 1,
+                        "default": "1970-01-01T00:00:00.000000Z",
+                        "field": "created_at_tz"
+                    }
+                ],
+                "optional": true,
+                "name": "test.public.users.Value",
+                "field": "after"
+            },
+            {
+                "type": "struct",
+                "fields": [
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "version"
+                    },
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "connector"
+                    },
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "name"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": false,
+                        "field": "ts_ms"
+                    },
+                    {
+                        "type": "string",
+                        "optional": true,
+                        "name": "io.debezium.data.Enum",
+                        "version": 1,
+                        "parameters": {
+                            "allowed": "true,first,first_in_data_collection,last_in_data_collection,last,false,incremental"
+                        },
+                        "default": "false",
+                        "field": "snapshot"
+                    },
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "db"
+                    },
+                    {
+                        "type": "string",
+                        "optional": true,
+                        "field": "sequence"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": true,
+                        "field": "ts_us"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": true,
+                        "field": "ts_ns"
+                    },
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "schema"
+                    },
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "table"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": true,
+                        "field": "txId"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": true,
+                        "field": "lsn"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": true,
+                        "field": "xmin"
+                    },
+                    {
+                        "type": "string",
+                        "optional": true,
+                        "field": "origin"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": true,
+                        "field": "origin_lsn"
+                    }
+                ],
+                "optional": false,
+                "name": "io.debezium.connector.postgresql.Source",
+                "version": 1,
+                "field": "source"
+            },
+            {
+                "type": "struct",
+                "fields": [
+                    {
+                        "type": "string",
+                        "optional": false,
+                        "field": "id"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": false,
+                        "field": "total_order"
+                    },
+                    {
+                        "type": "int64",
+                        "optional": false,
+                        "field": "data_collection_order"
+                    }
+                ],
+                "optional": true,
+                "name": "event.block",
+                "version": 1,
+                "field": "transaction"
+            },
+            {
+                "type": "string",
+                "optional": false,
+                "field": "op"
+            },
+            {
+                "type": "int64",
+                "optional": true,
+                "field": "ts_ms"
+            },
+            {
+                "type": "int64",
+                "optional": true,
+                "field": "ts_us"
+            },
+            {
+                "type": "int64",
+                "optional": true,
+                "field": "ts_ns"
+            }
+        ],
+        "optional": false,
+        "name": "test.public.users.Envelope",
+        "version": 2
+    },
+    "payload": {
+        "before": null,
+        "after": {
+            "id": 7,
+            "name": "Flamberge",
+            "age": 1000,
+            "birthday": -25567,
+            "is_admin": true,
+            "balance": 5000.0,
+            "created_at": 1779779053136776,
+            "created_at_tz": "2026-05-26T07:04:13.136776Z"
+        },
+        "source": {
+            "version": "3.5.1.Final",
+            "connector": "postgresql",
+            "name": "test",
+            "ts_ms": 1779779053137,
+            "snapshot": "false",
+            "db": "alpha",
+            "sequence": "[\"26783520\",\"26783576\"]",
+            "ts_us": 1779779053137040,
+            "ts_ns": 1779779053137040000,
+            "schema": "public",
+            "table": "users",
+            "txId": 758,
+            "lsn": 26783576,
+            "xmin": null,
+            "origin": null,
+            "origin_lsn": null
+        },
+        "transaction": null,
+        "op": "c",
+        "ts_ms": 1779779053480,
+        "ts_us": 1779779053480685,
+        "ts_ns": 1779779053480685922
+    }
+}

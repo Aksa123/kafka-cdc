@@ -1,0 +1,123 @@
+services:
+  broker:
+    image: apache/kafka:4.2.1-rc3
+    container_name: broker
+    ports:
+      - "9094:9094"
+    expose:
+      - 9095
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://localhost:9092,CONTROLLER://localhost:9093,EXTERNAL://:9094,DOCKER://broker:9095
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,EXTERNAL://localhost:9094,DOCKER://broker:9095
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 1
+
+  postgres-src:
+    image: postgres:17.5-bullseye
+    container_name: postgres-src
+    ports:
+      - 5437:5432
+    expose:
+      - 5432
+    volumes:
+      - ./my-postgres.conf:/etc/postgresql/postgresql.conf:ro
+    environment:
+      - POSTGRES_DB=${DB_SOURCE_NAME}
+      - POSTGRES_USER=${DB_SOURCE_USER}
+      - POSTGRES_PASSWORD=${DB_SOURCE_PASSWORD}
+    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_SOURCE_NAME} -d ${DB_SOURCE_NAME}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  postgres-dst:
+    image: postgres:17.5-bullseye
+    container_name: postgres-dst
+    ports:
+      - 5438:5432
+    expose:
+      - 5432
+    volumes:
+      - ./my-postgres.conf:/etc/postgresql/postgresql.conf:ro
+    environment:
+      - POSTGRES_DB=${DB_DESTINATION_NAME}
+      - POSTGRES_USER=${DB_DESTINATION_USER}
+      - POSTGRES_PASSWORD=${DB_DESTINATION_PASSWORD}
+    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_DESTINATION_NAME} -d ${DB_DESTINATION_NAME}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  # CONFLUENT KAFKA CONNECT
+  # connect:
+  #   image: confluentinc/cp-kafka-connect:8.1.2
+  #   container_name: connect
+  #   ports:
+  #     - 8083:8083
+  #   volumes:
+  #     - ./connectors:/usr/share/java/external_connectors:ro
+  #   depends_on:
+  #     postgres-src:
+  #       condition: service_healthy
+  #     postgres-dst:
+  #       condition: service_healthy
+  #     broker:
+  #       condition: service_started
+  #   environment:
+  #     - CONNECT_BOOTSTRAP_SERVERS=broker:9095
+  #     - CONNECT_GROUP_ID=connect-group
+  #     - CONNECT_CONFIG_STORAGE_TOPIC=connect-config
+  #     - CONNECT_OFFSET_STORAGE_TOPIC=connect-offset
+  #     - CONNECT_STATUS_STORAGE_TOPIC=connect-status
+  #     - CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR=1
+  #     - CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=1
+  #     - CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=1
+  #     - CONNECT_KEY_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+  #     - CONNECT_VALUE_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+  #     - CONNECT_REST_ADVERTISED_HOST_NAME=connect
+  #     - CONNECT_PLUGIN_DISCOVERY=hybrid_warn
+  #     - CONNECT_PLUGIN_PATH=/usr/share/java/external_connectors/jdbc,/usr/share/java/external_connectors/debezium-postgres
+
+  # DEBEZIUM CONNECT
+  connect:
+    image: quay.io/debezium/connect:3.5.1
+    container_name: connect
+    ports:
+      - 8083:8083
+    volumes:
+      - ./connectors:/usr/share/java/external_connectors:ro
+    depends_on:
+      postgres-src:
+        condition: service_healthy
+      postgres-dst:
+        condition: service_healthy
+      broker:
+        condition: service_started
+    environment:
+      - BOOTSTRAP_SERVERS=broker:9095
+      - GROUP_ID=connect-group
+      - CONFIG_STORAGE_TOPIC=connect-config
+      - OFFSET_STORAGE_TOPIC=connect-offset
+      - STATUS_STORAGE_TOPIC=connect-status
+      - CONFIG_STORAGE_REPLICATION_FACTOR=1
+      - OFFSET_STORAGE_REPLICATION_FACTOR=1
+      - STATUS_STORAGE_REPLICATION_FACTOR=1
+      - KEY_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+      - VALUE_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+      - REST_ADVERTISED_HOST_NAME=connect
+      - PLUGIN_DISCOVERY=hybrid_fail
+      # - KAFKA_CONNECT_PLUGIN_PATH=/usr/share/java/external_connectors

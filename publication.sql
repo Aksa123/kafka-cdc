@@ -1,0 +1,1 @@
+create publication testpub for table public.users, public.cities;

@@ -1,0 +1,35 @@
+{
+    "name": "schema_name.table_name",
+    "type": "record",
+    "schema": {
+        "id": {
+            "type": "int"
+        },
+        "name": {
+            "type": "string"
+        },
+        "date_of_birth": {
+            "type": "int",
+            "class": "date"
+        },
+        "created_at": {
+            "type": "int",
+            "class": "datetime"
+        },
+        "created_at_utc": {
+            "type": "string",
+            "class": "datatetimetz"
+        },
+        "is_admin": {
+            "type": "bool"
+        }
+    },
+    "values": {
+        "id": 1000,
+        "name": "flip",
+        "date_of_birth": 1000,
+        "created_at": 1779627527,
+        "created_at_utc": "2026-05-24T19:25:06+0700",
+        "is_admin": false
+    }
+}

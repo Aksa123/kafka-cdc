@@ -1,0 +1,59 @@
+{
+    "name": "schema_name.table_name",
+    "type": "record",
+    "schema": [
+        {
+            "field": "id",
+            "type": "int"
+        },
+        {
+            "field": "name",
+            "type": "string"
+        },
+        {
+            "field": "date_of_birth",
+            "type": "int",
+            "class": "date"
+        },
+        {
+            "field": "created_at",
+            "type": "int",
+            "class": "datetime"
+        },
+        {
+            "field": "created_at_utc",
+            "type": "string",
+            "class": "datatetimetz"
+        },
+        {
+            "field": "is_admin",
+            "type": "bool"
+        }
+    ],
+    "payload": [
+        {
+            "field": "id",
+            "value": 1
+        },
+        {
+            "field": "name",
+            "value": "flip"
+        },
+        {
+            "field": "date_of_birth",
+            "value": 1000
+        },
+        {
+            "field": "created_at",
+            "value": 1779627527
+        },
+        {
+            "field": "created_at_utc",
+            "value": "2026-05-24T19:25:06+0700"
+        },
+        {
+            "field": "is_admin",
+            "value": false
+        }
+    ]
+}
